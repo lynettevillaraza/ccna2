@@ -74,7 +74,7 @@ WARNING: IF YOU SEE AMBER/ORANGE= NEEDS FIXING!!!
 Trunk Ports: switch to switch:
 TAAS/BABA: (Line 76-83 Paste on COREtaas & COREbaba)
 config t
-Int Range fa0/10-42
+Int Range fa0/10-12
  ! shutdown
  no shutdown
  switchport trunk Encap Dot1Q
@@ -86,7 +86,7 @@ CCNPSkillsNow: Etherchannel with LinkAggregationControlProtocol:
 WARNING: THREE CABLES IS BETTER THAN ONE!
 @taas/BABA: (Line 88- 94 Paste on COREtaas & COREbaba)
 config t
-Int Range fa0/10-42
+Int Range fa0/10-12
  channel-group 1 mode active
  channel-protocol Lacp
  do sh etherchannel summary
@@ -310,10 +310,10 @@ conf t
   destination-pattern 11..
   session target ipv4:10.11.100.8
   codec g711ULAW
- !dial-peer voice 42 Voip
-  !destination-pattern 42..
-  !session target ipv4:10.42.100.8
-  !codec g711ULAW
+ ! dial-peer voice 42 Voip
+  ! destination-pattern 42..
+  ! session target ipv4:10.42.100.8
+  ! codec g711ULAW
  dial-peer voice 21 Voip
   destination-pattern 21..
   session target ipv4:10.21.100.8
@@ -588,3 +588,39 @@ config firewall policy
  set nat disable
  next
 end
+
+
+
+
+INSIDE - OUTSIDE
+
+config firewall policy
+ edit 1
+ set name "VoIP-Allow"
+ set srcintf "port1"
+ set dstintf "wan1"
+ set srcaddr "all"
+ set dstaddr "all"
+ set action accept
+ set schedule "always"
+ set service "ALL"
+ set nat enable
+ next
+end
+
+
+OUTSIDE - INSIDE 
+config firewall policy
+ edit 2
+ set name "INcoming"
+ set srcintf "wan1"
+ set dstintf "port1"
+ set srcaddr "all"
+ set dstaddr "all"
+ set action accept
+ set schedule "always"
+ set service "ALL"
+ set nat disable
+ next
+end
+
