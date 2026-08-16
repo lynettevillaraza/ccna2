@@ -153,7 +153,7 @@ int e1/0
 P2: create static route for vlan 200 and a 
 longest prefix rule[for Vip IP address] for 192.168.1.129 GATEWAY of 10.2.1.1
 config t
-ip route  192.168.1.128 255.255.255.224 10.2.1.2
+ip route  192.168.1.128 255.255.255.224 10.2.1.2 
 ip route  192.168.1.129 255.255.255.255 10.2.1.1
 do sh ip route static
 Pano mag static Route sa PC:
@@ -162,14 +162,14 @@ route  add 10.m.0.0 mask 255.255.0.0 10.m.1.4 -p
 
 How to Create Default Route Cisco/PC/EndDevices:
 p1:
-config T
+config t
 ip route 0.0.0.0  0.0.0.0 10.2.1.1 1
 ip route 0.0.0.0  0.0.0.0 10.2.1.2 2
 !floating Static Routes
 do sh ip route static
 
 p2:
-config T
+config t
 ip route 0.0.0.0  0.0.0.0 10.2.1.2 1
 ip route 0.0.0.0  0.0.0.0 10.2.1.1 2
 do sh ip route static
